@@ -1,0 +1,30 @@
+<!-- <fc-general-new [fields]="fields" [itemForm]="itemForm" [parentAssociations]="parentAssociations"
+  [IsCreatePermission]="IsCreatePermission" [loading]="loading"
+  [title]="title" (onPickerScroll)="onPickerScroll($event)"
+  (onAssociationOptionSelected)="onAssociationOptionSelected($event)" (onSelectAssociation)="selectAssociation($event)"
+  (onBack)="onCancel()" (onSubmit)="onSubmit()">
+</fc-general-new> -->
+
+
+<div class="create-item">
+	<mat-card>
+		<mat-card-header>
+			<mat-card-title>{{title}}</mat-card-title>
+			<a name="cancel" href="javascript:void(0)" (click)="onCancel()" class="cancle-btn"><i
+					class="material-icons">add_circle</i></a>
+		</mat-card-header>
+		<mat-card-content>
+			<form [formGroup]="itemForm" #itemNgForm="ngForm" (ngSubmit)="submit()" class="item-form">
+        <mat-form-field *ngFor="let association of parentAssociations" (click)="selectAssociation(association)">
+          <input readonly type="text" matInput [formControlName]="association.descriptiveField"
+            placeholder="{{ association.label }}" />
+          <mat-icon class="cursor-pointer" matSuffix>list</mat-icon>
+        </mat-form-field>
+      </form>
+		</mat-card-content>
+		<mat-card-actions class="fc-text-right">
+			<button name="save" mat-raised-button color="primary" (click)="onSubmit()"
+				[disabled]="!itemForm.valid || loading || !IsCreatePermission">{{'GENERAL.ACTIONS.SAVE' | translate}}</button>
+		</mat-card-actions>
+	</mat-card>
+</div>

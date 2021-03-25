@@ -1,0 +1,114 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog 
+		xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+		xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-3.8.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    
+        <changeSet author="fastCode, Inc" id="permission_1">
+    	<loadData encoding="UTF-8" file="db/data/permission_1.csv" separator="," tableName="permission"/>
+    </changeSet>
+    <changeSet author="fastCode, Inc" id="permission_2">
+    	<loadData encoding="UTF-8" file="db/data/permission_2.csv" separator="," tableName="permission"/>
+    </changeSet>
+    <changeSet author="fastCode, Inc" id="role">
+    	<loadData encoding="UTF-8" file="db/data/role.csv" separator="," tableName="role"/>
+    </changeSet>
+    <changeSet author="fastCode, Inc" id="rolepermission">
+    	<loadData encoding="UTF-8" file="db/data/rolepermission.csv" separator="," tableName="rolepermission"/>
+		</changeSet>
+		<changeSet author="fastCode, Inc" id="user">
+    	<loadData encoding="UTF-8" file="db/data/user.csv" separator="," tableName="users"/>
+		</changeSet>
+    <changeSet author="fastCode, Inc" id="userrole">
+    	<loadData encoding="UTF-8" file="db/data/userrole.csv" separator="," tableName="usersrole"/>
+		</changeSet>
+    <changeSet author="fastCode, Inc" id="userpreference">
+    	<loadData encoding="UTF-8" file="db/data/userpreference.csv" separator="," tableName="userspreference"/>
+		</changeSet>
+    
+    <changeSet author="fastCode, Inc" id="assign-rolepermission-REPORTDASHBOARDENTITY_DELETE">
+    <insert tableName="rolepermission">
+        <column name="permission_id" valueComputed="(SELECT id from permission where name='REPORTDASHBOARDENTITY_DELETE')"/>
+        <column name="role_id" value="1"/>
+        <column name="versiono" value="0"/>
+    </insert>
+    </changeSet>
+    <changeSet author="fastCode, Inc" id="assign-rolepermission-REPORTDASHBOARDENTITY_READ">
+    <insert tableName="rolepermission">
+        <column name="permission_id" valueComputed="(SELECT id from permission where name='REPORTDASHBOARDENTITY_READ')"/>
+        <column name="role_id" value="1"/>
+        <column name="versiono" value="0"/>
+    </insert>
+    </changeSet>
+    <changeSet author="fastCode, Inc" id="assign-rolepermission-REPORTENTITY_READ">
+    <insert tableName="rolepermission">
+        <column name="permission_id" valueComputed="(SELECT id from permission where name='REPORTENTITY_READ')"/>
+        <column name="role_id" value="1"/>
+        <column name="versiono" value="0"/>
+    </insert>
+    </changeSet>
+    <changeSet author="fastCode, Inc" id="assign-rolepermission-DASHBOARDENTITY_CREATE">
+    <insert tableName="rolepermission">
+        <column name="permission_id" valueComputed="(SELECT id from permission where name='DASHBOARDENTITY_CREATE')"/>
+        <column name="role_id" value="1"/>
+        <column name="versiono" value="0"/>
+    </insert>
+    </changeSet>
+    <changeSet author="fastCode, Inc" id="assign-rolepermission-DASHBOARDENTITY_READ">
+    <insert tableName="rolepermission">
+        <column name="permission_id" valueComputed="(SELECT id from permission where name='DASHBOARDENTITY_READ')"/>
+        <column name="role_id" value="1"/>
+        <column name="versiono" value="0"/>
+    </insert>
+    </changeSet>
+    <changeSet author="fastCode, Inc" id="assign-rolepermission-REPORTENTITY_CREATE">
+    <insert tableName="rolepermission">
+        <column name="permission_id" valueComputed="(SELECT id from permission where name='REPORTENTITY_CREATE')"/>
+        <column name="role_id" value="1"/>
+        <column name="versiono" value="0"/>
+    </insert>
+    </changeSet>
+    <changeSet author="fastCode, Inc" id="assign-rolepermission-REPORTENTITY_UPDATE">
+    <insert tableName="rolepermission">
+        <column name="permission_id" valueComputed="(SELECT id from permission where name='REPORTENTITY_UPDATE')"/>
+        <column name="role_id" value="1"/>
+        <column name="versiono" value="0"/>
+    </insert>
+    </changeSet>
+    <changeSet author="fastCode, Inc" id="assign-rolepermission-REPORTDASHBOARDENTITY_CREATE">
+    <insert tableName="rolepermission">
+        <column name="permission_id" valueComputed="(SELECT id from permission where name='REPORTDASHBOARDENTITY_CREATE')"/>
+        <column name="role_id" value="1"/>
+        <column name="versiono" value="0"/>
+    </insert>
+    </changeSet>
+    <changeSet author="fastCode, Inc" id="assign-rolepermission-REPORTDASHBOARDENTITY_UPDATE">
+    <insert tableName="rolepermission">
+        <column name="permission_id" valueComputed="(SELECT id from permission where name='REPORTDASHBOARDENTITY_UPDATE')"/>
+        <column name="role_id" value="1"/>
+        <column name="versiono" value="0"/>
+    </insert>
+    </changeSet>
+    <changeSet author="fastCode, Inc" id="assign-rolepermission-DASHBOARDENTITY_UPDATE">
+    <insert tableName="rolepermission">
+        <column name="permission_id" valueComputed="(SELECT id from permission where name='DASHBOARDENTITY_UPDATE')"/>
+        <column name="role_id" value="1"/>
+        <column name="versiono" value="0"/>
+    </insert>
+    </changeSet>
+    <changeSet author="fastCode, Inc" id="assign-rolepermission-REPORTENTITY_DELETE">
+    <insert tableName="rolepermission">
+        <column name="permission_id" valueComputed="(SELECT id from permission where name='REPORTENTITY_DELETE')"/>
+        <column name="role_id" value="1"/>
+        <column name="versiono" value="0"/>
+    </insert>
+    </changeSet>
+    <changeSet author="fastCode, Inc" id="assign-rolepermission-DASHBOARDENTITY_DELETE">
+    <insert tableName="rolepermission">
+        <column name="permission_id" valueComputed="(SELECT id from permission where name='DASHBOARDENTITY_DELETE')"/>
+        <column name="role_id" value="1"/>
+        <column name="versiono" value="0"/>
+    </insert>
+    </changeSet>
+</databaseChangeLog>

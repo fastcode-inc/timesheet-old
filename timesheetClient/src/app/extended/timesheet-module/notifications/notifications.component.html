@@ -1,0 +1,51 @@
+<section class="spinner-container" *ngIf="loading">
+  <mat-spinner></mat-spinner>
+</section>
+<div class="list-container" appVirtualScroll>
+	<div class="top-breadcrumb">
+		<h1 class="template-title">{{title}}</h1>
+		<div class="fc-row">
+			<div class="fc-col-md-8">
+				<ul class="breadcrumb">
+					<li><a [routerLink]="['/dashboard']"><i class="material-icons">
+								home
+							</i> &nbsp; {{'HOME' | translate}}</a></li>
+					<li><a>{{title}}</a></li>
+				</ul>
+			</div>
+			<div class="fc-col-md-4 fc-text-right">
+      </div>
+
+		</div>
+	</div>
+	<mat-card>
+    <div>
+      <h3>{{'TIMESHEET.TIME-TRACKING-REMINDERS-HEADING' | translate}}</h3>
+      <div class="notifiyChart" fxLayout="column" fxLayoutAlign="center center">
+        <div fxFlex>
+          <div>{{'TIMESHEET.TIME-TRACKING-REMINDERS-DESCRIPTION-1' | translate}}</div>
+            <div fxFlex=37 class="time-container">
+              <ngx-timepicker-field #timePicker [(ngModel)]="time" name='timepicker'>
+              </ngx-timepicker-field>
+            </div>
+            <div fxFlex>{{'TIMESHEET.TIME-TRACKING-REMINDERS-DESCRIPTION-2' | translate}}</div>
+        </div>
+
+        <div class="notify" fxFlex>
+          <ng-container *ngFor="let day of weekday">
+            <div fxFlex class="cursor notifyday" (click)="selectDay(day)" [class.selected]="isActive(day)">
+              {{day | titlecase}}
+            </div>
+          </ng-container>
+        </div>
+
+        <div fxFlex class="action">
+          <button class="actionbtn" mat-raised-button color="primary" (click)="update()">{{'GENERAL.ACTIONS.UPDATE' | translate}}</button>
+          <button class="actionbtn" mat-raised-button color="accent" (click)="cancel()">{{'GENERAL.ACTIONS.CANCEL' | translate}}</button>
+
+        </div>
+
+      </div>
+    </div>
+	</mat-card>
+</div>

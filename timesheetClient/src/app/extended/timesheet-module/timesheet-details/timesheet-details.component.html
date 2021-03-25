@@ -1,0 +1,119 @@
+<section class="spinner-container" *ngIf="loading">
+  <mat-spinner></mat-spinner>
+</section>
+<div class="list-container" appVirtualScroll>
+	<div class="top-breadcrumb">
+		<h1 class="template-title">{{'TIMESHEET.TIMESHEET_VIEW' | translate}}</h1>
+	</div>
+	<mat-card>
+    <div>
+      <div fxFlex class="customerInfo">
+        <div fxFlex=35>
+          <h3>{{timesheet?.usersDescriptiveField}}</h3>
+          <p><strong>Status: </strong>{{timesheet?.timesheetstatusDescriptiveField}}</p>
+        </div>
+        <div fxFlex=25>
+        </div>
+        <div fxFlex=30 class="datepaginator" id="paginator">
+
+          <div>
+            <button mat-raised-button color="primary" (click)="setTimesheet('back')"><mat-icon>keyboard_arrow_left</mat-icon></button>
+
+            <span class="datepickerdiv"><span>{{'TIMESHEET.CHOOSE-DATE-LABEL' | translate}}</span>
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker ></mat-datepicker>
+            </span>
+
+            <button mat-raised-button color="primary" (click)="setTimesheet('next')"><mat-icon>keyboard_arrow_right</mat-icon></button>
+          </div>
+          <div class="selectedDate">
+            <b>{{timesheetDate | date: "longDate"}}-{{timesheettilldate | date:"longDate"}}</b>
+          </div>
+          <div class="invisible">
+            <mat-form-field >
+              <input matInput name="DaytimeSheet" (dateInput)="dateChanged($event)"  [(ngModel)]="timesheetDate" [matDatepicker]="picker"/>
+            </mat-form-field>
+          </div>
+        </div>
+        <div fxLayout="column wrap" fxFlex="10" fxLayoutGap="10px" class="datepaginator">
+          <button 
+            *ngIf="!userid"
+            [disabled]="!editable"
+            (click)="changeTimeSheetStatus('Submitted')"
+            class="timesheetbutton"
+            mat-raised-button 
+            color="primary"
+          >
+          {{'TIMESHEET.SUBMIT' | translate}}
+          </button>
+          <button 
+            *ngIf="userid"
+            [disabled]="!editable"
+            (click)="changeTimeSheetStatus('Approved')"
+            class="timesheetbutton"
+            mat-raised-button color="primary"
+            >
+            {{'TIMESHEET.APPROVE' | translate}}
+          </button>
+          <button
+            *ngIf="userid"
+            [disabled]="!editable"
+            (click)="changeTimeSheetStatus('Rejected')"
+            class="timesheetbutton"
+            mat-raised-button
+            color="warn"
+          >
+          {{'TIMESHEET.REJECT' | translate}}
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="timesheetdetails">
+      <div class="sheetmonth"><b>{{month}}</b></div>
+      <table>
+        <thead>
+            <th>{{'TIMESHEET.CUSTOMER' | translate}}</th>
+            <th>{{'TIMESHEET.PROJECT' | translate}}</th>
+            <th>{{'TIMESHEET.TASK' | translate}}/{{'TIMESHEET.TIME-OFF' | translate}}</th>
+            <ng-container *ngFor="let dd of dayList">
+              <th>{{dd}}</th>
+            </ng-container>
+            <th>{{'TIMESHEET.TOTAL' | translate}}</th>
+
+        </thead>
+
+        <tbody>
+          <ng-container *ngFor="let task of uniqueTasks">
+            <tr>
+              <td class="init-col">{{task.customerDescriptiveField}}</td>
+              <td class="init-col">{{task.projectDescriptiveField}}</td>
+              <td class="init-col">{{task.taskDescriptiveField || task.timeofftypeDescriptiveField}}</td>
+              <ng-container *ngFor="let dd of dayList; let idx = index">
+                <td class="col-4">{{timesheetDetailsMap[dateList[idx] + '-' + (task.taskid || ('to-' + task.timeofftypeid))]?.hours}}</td>
+              </ng-container>
+              <td>{{rowWiseSumMap[(task.taskid || ('to-' + task.timeofftypeid))]}}</td>
+            </tr>
+          </ng-container>
+          <tr>
+            <td colspan="3">{{'TIMESHEET.TOTAL' | translate}}</td>
+            <ng-container *ngFor="let dd of dayList; let idx = index">
+              <td class="col-4">{{columnWiseSumMap[dateList[idx]]}}</td>
+            </ng-container>
+            <td><strong>{{totalSum}}</strong></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="notes">
+      <mat-label>{{'TIMESHEET.NOTES' | translate}}:</mat-label>
+      <textarea [readonly]="!userid || !editable" class="notes" rows="4" [(ngModel)]="notes">{{notes}}
+      </textarea>
+    </div>
+
+		<section class="small-spinner-container" *ngIf="isLoadingResults">
+			<mat-spinner></mat-spinner>
+		</section>
+	</mat-card>
+</div>
+

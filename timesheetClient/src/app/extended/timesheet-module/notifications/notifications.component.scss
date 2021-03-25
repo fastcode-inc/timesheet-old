@@ -1,0 +1,35 @@
+.notifiyChart {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.time-container {
+  margin-top: -10px;
+  padding-right: 25px;
+  padding-left: 8px;
+}
+
+.action {
+  margin-top: 10px;
+}
+
+.actionbtn {
+  margin:10px
+}
+
+.selected {
+  background-color: #9de3e6a1;
+  color:black;
+}
+
+.notifyday {
+  // margin-top: 10px;
+  margin-right: 20px;
+  padding: 10px;
+  width:60px;
+  font-size: 16px;
+  color: #aca5a5;
+  border: 1px solid #aca5a5;
+}
+
+.cursor { cursor: pointer; }

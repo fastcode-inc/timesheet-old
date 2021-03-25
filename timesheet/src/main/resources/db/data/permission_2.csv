@@ -1,0 +1,13 @@
+versiono,display_name,name
+0,delete reportdashboard,REPORTDASHBOARDENTITY_DELETE
+0,read reportdashboard,REPORTDASHBOARDENTITY_READ
+0,read report,REPORTENTITY_READ
+0,create dashboard,DASHBOARDENTITY_CREATE
+0,read dashboard,DASHBOARDENTITY_READ
+0,create report,REPORTENTITY_CREATE
+0,update report,REPORTENTITY_UPDATE
+0,create reportdashboard,REPORTDASHBOARDENTITY_CREATE
+0,update reportdashboard,REPORTDASHBOARDENTITY_UPDATE
+0,update dashboard,DASHBOARDENTITY_UPDATE
+0,delete report,REPORTENTITY_DELETE
+0,delete dashboard,DASHBOARDENTITY_DELETE

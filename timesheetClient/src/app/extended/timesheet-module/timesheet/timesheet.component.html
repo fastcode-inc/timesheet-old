@@ -1,0 +1,178 @@
+<section class="spinner-container" *ngIf="loading">
+  <mat-spinner></mat-spinner>
+</section>
+<div class="list-container" appVirtualScroll>
+	<div class="top-breadcrumb">
+		<h1 class="template-title">{{'TIMESHEET.DAY_VIEW' | translate}}</h1>
+	</div>
+	<mat-card>
+    <div class="datepaginator">
+      <div fxFlex=73>
+
+      </div>
+
+      <div fxFlex=27 >
+        <div >
+
+          <button mat-raised-button color="primary" (click)="backDate()"><mat-icon>keyboard_arrow_left</mat-icon></button>
+
+          <span class="datepickerdiv"><span>{{'TIMESHEET.CHOOSE-DATE-LABEL' | translate}}</span>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </span>
+
+          <button mat-raised-button color="primary" (click)="nextDate()"><mat-icon>keyboard_arrow_right</mat-icon></button>
+        </div>
+        <div class="selectedDate">
+          <b>{{timesheetDate | date: "fullDate"}}</b>
+        </div>
+        <div class="invisible">
+          <mat-form-field >
+            <input matInput name="DaytimeSheet"  (dateInput)="dateChanged($event)" [(ngModel)]="timesheetDate" [matDatepicker]="picker"/>
+          </mat-form-field>
+        </div>
+
+      </div>
+    </div>
+
+    <div>
+      <table>
+        <thead>
+            <th></th>
+            <th>{{'TIMESHEET.CUSTOMER' | translate}}</th>
+            <th>{{'TIMESHEET.PROJECT' | translate}}</th>
+            <th>{{'TIMESHEET.TASK' | translate}}</th>
+            <th>{{'TIMESHEET.HOURS' | translate}}</th>
+            <th>{{'TIMESHEET.NOTES' | translate}}</th>
+        </thead>
+
+        <tbody>
+          <ng-container *ngFor="let dsheet of daysheet; let idx = index">
+            <tr *ngIf="dsheet.type !== 'timeoff' && !dsheet.timeofftypeid">
+              <td class="col-1">
+                <button mat-icon-button [disabled]="!editable" (click)="deleteRow(idx)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </td>
+              <td class="col-2">
+                <mat-form-field class="customers" *ngIf="editable">
+                  <mat-select name="customer" placeholder="Select a customer.." [(ngModel)]="dsheet.customerid">
+                      <mat-option *ngFor="let cust of customers" [value]="cust.id">{{cust.name}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <span *ngIf="!editable">
+                  {{dsheet.customerDescriptiveField}}
+                </span>
+              </td>
+              <td class="col-3">
+                <mat-form-field class="projects" *ngIf="editable">
+                  <mat-select placeholder="Select a project.." name="project" [(ngModel)]="dsheet.projectid">
+                      <mat-option *ngFor="let proj of (projectsMap[dsheet.customerid] || [])" [value]="proj.id">{{proj.name}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <span *ngIf="!editable">
+                  {{dsheet.projectDescriptiveField}}
+                </span>
+              </td>
+              <td class="col-4">
+                <mat-form-field class="tasks" *ngIf="editable">
+                  <mat-select placeholder="Select a task.." name="task" [(ngModel)]="dsheet.taskid" (selectionChange)="taskSelected(dsheet.taskid, dsheet.projectid)">
+                      <mat-option [disabled]="task.disabled" *ngFor="let task of (tasksMap[dsheet.projectid] || [])" [value]="task.id">{{task.name}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <span *ngIf="!editable">
+                  {{dsheet.taskDescriptiveField}}
+                </span>
+              </td>
+              <td class="col-1">
+                <mat-form-field class="hours" *ngIf="editable">
+                  <input name="hours" (input)="totalDayHours($event)"  [(ngModel)]="dsheet.hours" matInput placeholder="">
+                </mat-form-field>
+                <span *ngIf="!editable">
+                  {{dsheet.hours}}
+                </span>
+              </td>
+              <td class="col-5">
+                <mat-icon class="cursor" (click)="addNotes(idx)" *ngIf="editable && notesindex !== idx">description</mat-icon>
+                <textarea *ngIf="editable && notesindex == idx" [(ngModel)]="dsheet.notes">{{dsheet.notes}}
+                </textarea>
+                <span *ngIf="!editable">
+                  {{dsheet.notes}}
+                </span>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
+    </div>
+    <div class="addRow">
+      <button [disabled]="!editable" name="add" mat-raised-button color="primary" (click)="addTimesheetDetails()">
+        <mat-icon>add_circle_outline</mat-icon>
+        &nbsp; {{'TIMESHEET.ADD-ROW' | translate}}
+      </button>
+    </div>
+
+
+    <div class="timeoffTable">
+      <table>
+        <thead>
+            <th></th>
+            <th>{{'TIMESHEET.TIME-OFF' | translate}}</th>
+            <th>{{'TIMESHEET.HOURS' | translate}}</th>
+            <th>{{'TIMESHEET.NOTES' | translate}}</th>
+        </thead>
+
+        <tbody>
+          <ng-container *ngFor="let dsheet of daysheet; let idx = index">
+            <tr *ngIf="dsheet.type === 'timeoff' || dsheet.timeofftypeid">
+              <td class="col-1">
+                <button mat-icon-button [disabled]="!editable" (click)="deleteRow(idx)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </td>
+              <td class="col-6">
+                <mat-form-field *ngIf="editable" class="timeoff">
+                  <mat-select placeholder="Select timeoff type.." name="timeoff" [(ngModel)]="dsheet.timeofftypeid" (selectionChange)="timeofftypeSelected(dsheet.timeofftypeid)">
+                      <mat-option [disabled]="tot.disabled" *ngFor="let tot of timeOffTypes" [value]="tot.id">{{tot.typename}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <span *ngIf="!editable">
+                  {{dsheet.timeofftypeDescriptiveField}}
+                </span>
+              </td>
+              <td class="col-1">
+                <mat-form-field *ngIf="editable" class="hours">
+                  <input name="hours" (input)="totalDayHours($event)" [(ngModel)]="dsheet.hours" matInput placeholder="">
+                </mat-form-field>
+                <span *ngIf="!editable">
+                  {{dsheet.hours}}
+                </span>
+              </td>
+              <td class="col-5">
+                <mat-icon class="cursor" (click)="addNotes(idx)" *ngIf="editable && notesindex !== idx">description</mat-icon>
+                <textarea *ngIf="notesindex == idx" [(ngModel)]="dsheet.notes">{{dsheet.notes}}</textarea>
+                <span *ngIf="!editable">
+                  {{dsheet.notes}}
+                </span>
+              </td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
+    </div>
+    <div class="addRow">
+      <button [disabled]="!editable" name="add" mat-raised-button color="primary" (click)="addTimeOff()">
+        <mat-icon>add_circle_outline</mat-icon>
+        &nbsp; {{'TIMESHEET.ADD-ROW' | translate}}
+      </button>
+    </div>
+    <div>
+
+    <div class="totalhours"><b>{{'TIMESHEET.TOTAL-HOURS' | translate}}: </b> {{totalhours}}</div>
+    <div class="savetimesheet">
+      <button [disabled]="!editable" (click)="save()" mat-raised-button color="primary">
+        {{'GENERAL.ACTIONS.SAVE' | translate}}
+      </button>
+    </div>
+    </div>
+	</mat-card>
+</div>

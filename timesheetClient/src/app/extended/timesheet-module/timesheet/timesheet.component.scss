@@ -1,0 +1,140 @@
+.datepaginator {
+  //  height:120px;
+   width: 100%;
+  //  text-align: right;
+    padding-top:18px;
+   margin-bottom:10px;
+
+  //  background-color: #f2f2f2;
+}
+
+.invisible{
+  display: block;
+  visibility: hidden;
+  height: 0;
+  width: 0;
+}
+
+.savetimesheet {
+  text-align: right;
+}
+
+.datepickerdiv {
+  width: 180px;
+  padding-left: 16px;
+  padding-right: 8px;
+
+}
+
+
+.selectedDate {
+  width: 274px;
+    height: 45px;
+    padding: 10px;
+    font-size: 16px;
+    color: #aca5a5;
+    border: 1px solid #aca5a5;
+}
+
+.text-center{
+  text-align: center;
+}
+
+table {
+  // table-layout: fixed;
+  border:none;
+  width:100%;
+  border-collapse: collapse;
+  // text-align: center;
+  font-size: 12px;
+}
+
+table tbody {
+  // border: solid 1px #ccc;
+}
+
+table thead th {
+  background: #f2f2f2;
+  height:35px;
+  border: none;
+  text-align: left;
+  color: rgba(34, 27, 27, 0.85);
+  border-bottom: 1px solid rgb(172, 165, 165);
+}
+
+tr:nth-child(even) {background-color: #f2f2f2;}
+
+table tbody td {
+  border: none;
+  white-space: nowrap;
+}
+
+table tbody tr {
+  border-bottom: 1px solid rgb(172, 165, 165);
+  height:10px;
+}
+
+.addRow {
+  margin-top: 25px;
+}
+
+.col-1 {
+  width: 30px;
+}
+
+.col-2 {
+  width: 120px;
+}
+
+.col-3 {
+  width: 200px;
+}
+
+.col-4 {
+  width: 120px;
+}
+
+.col-5 {
+  width: 200px;
+}
+.col-6 {
+  width: 450px;
+}
+
+.timeoffTable {
+  margin-top: 20px;
+}
+
+.hours {
+  width:30px;
+}
+// .projects {
+//   width: 200px;
+// }
+
+// .customers {
+//   width: 120px;
+// }
+
+// .tasks {
+//   width: 120px;
+// }
+
+.cdk-column-date {
+  min-width: 105px;
+  @media screen and (min-width: 339px){
+    min-width: 105px;
+  }
+}
+
+mat-form-field {
+  width: 95%;
+}
+
+.totalhours {
+  margin-left: 58%;
+}
+
+.cursor { cursor: pointer; }
+
+

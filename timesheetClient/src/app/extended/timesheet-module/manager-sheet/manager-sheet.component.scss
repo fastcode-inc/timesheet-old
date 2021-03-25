@@ -1,0 +1,97 @@
+.timesheetdetails {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.text-center{
+ text-align: center;
+}
+
+table {
+ // table-layout: fixed;
+//  border:none;
+ width:100%;
+ border-collapse: collapse;
+ // text-align: center;
+ font-size: 16px;
+}
+
+.actionbtn {
+  margin-right: 10px;
+  font-size: 28px;
+  margin-top: 7px;
+}
+
+table tbody {
+ border: solid 1px #ccc;
+}
+
+table thead th {
+ background: #f2f2f2;
+ height:35px;
+//  border: none;
+ text-align: center;
+ color: rgba(34, 27, 27, 0.85);
+ border: 1px solid rgb(172, 165, 165);
+}
+
+tr:nth-child(even) {background-color: #f2f2f2;}
+
+table tbody td {
+//  border: none;
+text-align: center;
+border: 1px solid rgb(172, 165, 165);
+ white-space: nowrap;
+}
+
+table tbody tr {
+ border: 1px solid rgb(172, 165, 165);
+ height:15px;
+}
+
+.cursor { cursor: pointer; }
+
+.savetimesheet {
+  text-align: right;
+}
+
+.datepaginator {
+  padding-top: 18px;
+}
+
+.datepickerfield {
+  width: 180px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.datepickerdiv {
+  width: 180px;
+  padding-left: 16px;
+  padding-right: 8px;
+
+}
+
+
+.selectedDate {
+  width: 274px;
+  height: 45px;
+  padding: 10px;
+  font-size: 14px;
+  color: #aca5a5;
+  border: 1px solid #aca5a5;
+}
+
+.invisible{
+  display: block;
+  visibility: hidden;
+  height: 0;
+  width: 0;
+}
+
+.actionbutton {
+  margin: 5px 5px 5px 0px;
+}
+
+.button-container {
+  margin-top: 10px;
+}
